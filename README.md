@@ -1,5 +1,5 @@
-# AZNPano
-## Sprachliche Anforderung
+# 1. Die Datenbankanforderungen
+## 1.1 Sprachliche Anforderung
 - Jede Schicht ist von einem bestimmten **Typ**. Die Typen sind Frühschicht, Spätschicht, Mitternachtssauna und Special.
 
 - Jede Schicht hat einen zeitlichen Anfang und ein zeitliches Ende. Dabei können Schichten auch über 0 Uhr gehen.
@@ -12,11 +12,11 @@
 
 - Ab 6 Stunden Arbeitszeit ist eine Pause Pflicht. Eine Pause hat einen zeitlichen Anfang und ein zeitliches Ende. Eine Pause kann zusätzlich von zwei Typen sein (Normal oder Bereitschaft).
 
-## E/R-Diagramm
+## 1.2 E/R-Diagramm
 
 ![ERhdff](Unterlagen/ERDiagramm.png)
 
-## Relationenschreibweise
+## 1.3 Relationenschreibweise
 
 - Typ(**T_ID**, Bezeichnung)
 - Bereich(**B_ID**, Bezeichnung)
