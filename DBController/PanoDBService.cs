@@ -4,8 +4,22 @@ using System.Data;
 
 namespace AZNPano
 {
-    class DBService
+    class DBService : IDBService
     {
+
+        public void init(){
+
+        }
+
+        public void update(SqliteCommand sc){
+
+        }
+
+        public SqliteDataReader query(SqliteCommand sc){
+            return null;
+        }
+
+
         private static SqliteConnection sqliteconnection;
         public static void Main2(string[] args)
         {
