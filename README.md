@@ -15,3 +15,12 @@
 ## E/R-Diagramm
 
 ![ERhdff](Unterlagen/ERDiagramm.png)
+
+## Relationenschreibweise
+
+- Typ(**T_ID**, Bezeichnung)
+- Bereich(**B_ID**, Bezeichnung)
+- Pause(**P_ID**, Art, Beginn, Ende)
+- Schicht(**S_ID**, _T_ID_, _B_ID_, _P_ID_, Beginn, Ende)
+- Gehalt(**G_ID**, Betrag)
+- SchichtGehalt(**S_ID**, **G_ID**)
