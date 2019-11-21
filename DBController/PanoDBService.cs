@@ -37,10 +37,10 @@ namespace AZNPano.DBController
                 switch (relation)
                 {
                     case "Typ":
-                        sql = $"CREATE TABLE {relation} (T_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Bezeichnung TEXT NOT NULL)";
+                        sql = $"CREATE TABLE {relation} (T_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Bezeichnung INTEGER NOT NULL)";
                     break;
                     case "Bereich":
-                        sql = $"CREATE TABLE {relation} (B_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Bezeichnung TEXT NOT NULL)";
+                        sql = $"CREATE TABLE {relation} (B_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, Bezeichnung INTEGER NOT NULL)";
                     break;
                     case "Gehalt":
                         sql = $"CREATE TABLE {relation} (G_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"+
@@ -48,14 +48,14 @@ namespace AZNPano.DBController
                     break;
                     case "GehaltFaktor":
                         sql = $"CREATE TABLE {relation} (GF_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"+
-                                                        " Bezeichnung TEXT NOT NULL, Faktor REAL NOT NULL,"+
+                                                        " Bezeichnung INTEGER NOT NULL, Faktor REAL NOT NULL,"+
                                                         " Beginn TIMESTAMP NOT NULL, Ende TIMESTAMP)";
                     break;
                     case "Schicht":
                         sql = $"CREATE TABLE {relation} (S_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"+
                                                         " T_ID INTEGER NOT NULL, B_ID INTEGER NOT NULL,"+
                                                         " G_ID INTEGER NOT NULL, Beginn TIMESTAMP NOT NULL,"+
-                                                        " Ende TIMESTAMP, FOREIGN KEY(T_ID) REFERENCES Typ(T_ID),"+
+                                                        " Ende TIMESTAMP NOT NULL, FOREIGN KEY(T_ID) REFERENCES Typ(T_ID),"+
                                                         " FOREIGN KEY(B_ID) REFERENCES Bereich(B_ID), FOREIGN KEY(G_ID) REFERENCES Gehalt(G_ID))";
                     break;
                     case "Zeitraum":
@@ -69,7 +69,35 @@ namespace AZNPano.DBController
         }
 
         private void insertDemoData(){
-            string sql = "INSERT INTO GehaltFaktor (Bezeichnung, Faktor, Beginn) values ('Pause', 0.0, '2010-08-28T13:40:02.200');";
+            string sql = "INSERT INTO Typ (Bezeichnung) values (1);"+
+                        "INSERT INTO Typ (Bezeichnung) values (2);"+
+                        "INSERT INTO Typ (Bezeichnung) values (3);"+
+                        "INSERT INTO Typ (Bezeichnung) values (4);"+
+                        "INSERT INTO Bereich (Bezeichnung) values (1);"+
+                        "INSERT INTO Bereich (Bezeichnung) values (2);"+
+                        "INSERT INTO Bereich (Bezeichnung) values (3);"+
+                        "INSERT INTO Bereich (Bezeichnung) values (4);"+
+                        "INSERT INTO Bereich (Bezeichnung) values (5);"+
+                        "INSERT INTO Bereich (Bezeichnung) values (6);"+
+                        "INSERT INTO Bereich (Bezeichnung) values (7);"+
+                        "INSERT INTO Gehalt (Betrag, Beginn, Ende) values (12.50, '2018-01-01T00:00:00.000', '2018-12-31T00:00:00.000');" +
+                        "INSERT INTO Gehalt (Betrag, Beginn) values (12.94, '2019-01-01T00:00:00.000');" +
+                        "INSERT INTO GehaltFaktor (Bezeichnung, Faktor, Beginn, Ende) values (1, 1.25, '2018-01-01T00:00:00.000', '2018-12-31T00:00:00.000');" +
+                        "INSERT INTO GehaltFaktor (Bezeichnung, Faktor, Beginn) values (1, 1.35, '2019-01-01T00:00:00.000');" +
+                        "INSERT INTO GehaltFaktor (Bezeichnung, Faktor, Beginn, Ende) values (2, 1.30, '2018-01-01T00:00:00.000', '2018-12-31T00:00:00.000');" +
+                        "INSERT INTO GehaltFaktor (Bezeichnung, Faktor, Beginn) values (2, 1.40, '2019-01-01T00:00:00.000');" +
+                        "INSERT INTO GehaltFaktor (Bezeichnung, Faktor, Beginn, Ende) values (3, 1.35, '2018-01-01T00:00:00.000', '2018-12-31T00:00:00.000');" +
+                        "INSERT INTO GehaltFaktor (Bezeichnung, Faktor, Beginn) values (3, 1.45, '2019-01-01T00:00:00.000');" +
+                        "INSERT INTO GehaltFaktor (Bezeichnung, Faktor, Beginn, Ende) values (4, 0.0, '2018-01-01T00:00:00.000', '2018-12-31T00:00:00.000');" +
+                        "INSERT INTO GehaltFaktor (Bezeichnung, Faktor, Beginn) values (4, 0.0, '2019-01-01T00:00:00.000');" +
+                        "INSERT INTO GehaltFaktor (Bezeichnung, Faktor, Beginn, Ende) values (5, 1.0, '2018-01-01T00:00:00.000', '2018-12-31T00:00:00.000');" +
+                        "INSERT INTO GehaltFaktor (Bezeichnung, Faktor, Beginn) values (5, 1.0, '2019-01-01T00:00:00.000');" +
+                        "INSERT INTO Schicht (T_ID, B_ID, G_ID, Beginn, Ende) values (1, );" +
+                        "INSERT INTO Schicht (T_ID, B_ID, G_ID, Beginn, Ende) values (2, );" +
+                        "INSERT INTO Schicht (T_ID, B_ID, G_ID, Beginn, Ende) values (3, );" +
+                        "INSERT INTO Schicht (key, value) values ('key3', 9003);" +
+                        "INSERT INTO Schicht (key, value) values ('key4', 9004);" +
+                        "INSERT INTO Schicht (key, value) values ('key5', 9005);";
             Update(sql);
         }
 

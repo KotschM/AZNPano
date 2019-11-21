@@ -2,10 +2,10 @@ namespace AZNPano.DBModel
 {
     public enum ESchichtTyp
     {
-        Frühschicht,
-        Spätschicht,
-        Mitternachtssauna,
-        Special,
+        Frühschicht = 1,
+        Spätschicht = 2,
+        Mitternachtssauna = 3,
+        Special = 4,
     }
 }
 

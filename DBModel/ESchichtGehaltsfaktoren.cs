@@ -2,10 +2,10 @@ namespace AZNPano.DBModel
 {
     public enum ESchichtGehaltsfaktoren
     {
-        Nacht, 
-        Feiertag, 
-        Sonntag, 
-        Pause, 
-        Bereitschaftspause,
+        Nacht = 1, 
+        Feiertag = 2, 
+        Sonntag = 3, 
+        Pause = 4, 
+        Bereitschaftspause = 5,
     }
 }
