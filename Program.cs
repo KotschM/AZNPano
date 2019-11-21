@@ -1,4 +1,5 @@
 ﻿using System;
+using AZNPano.DBController;
 
 namespace AZNPano
 {
@@ -7,7 +8,9 @@ namespace AZNPano
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            DBService.Main2(args);
+            PanoDBService dbservice = new PanoDBService();
+            
+            dbservice.Init("AZNPano.db");
              
         }
     }

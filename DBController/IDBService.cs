@@ -2,14 +2,16 @@ using Microsoft.Data.Sqlite;
 using System;
 using System.Data;
 
-namespace AZNPano
+namespace AZNPano.DBController
 {
     public interface IDBService
     {
-        void init();
+        void Init(string dataName);
 
-        void update(SqliteCommand sc);
+        void Update(string sql);
 
-        SqliteDataReader query(SqliteCommand sc);
+        object QueryScalar(string sql);
+
+        SqliteDataReader QueryList(string sql);
     }
 }

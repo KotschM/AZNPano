@@ -2,9 +2,9 @@ using Microsoft.Data.Sqlite;
 using System;
 using System.Data;
 
-namespace AZNPano
+namespace AZNPano.DBController
 {
-    class Masrvin : IDBService
+    class Masrvin
     {
 
         public void init(){
@@ -20,8 +20,8 @@ namespace AZNPano
         }
 
 
-        private static SqliteConnection sqliteconnection;
-        public static void Main2(string[] args)
+        private SqliteConnection sqliteconnection;
+        public void Main2(string[] args)
         {
             sqliteconnection = new SqliteConnection("Data Source=mytest.db");
             sqliteconnection.Open();
