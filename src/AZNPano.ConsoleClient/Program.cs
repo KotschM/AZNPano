@@ -1,13 +1,12 @@
 ﻿using System;
 
-namespace AZNPano
+namespace AZNPano.ConsoleClient
 {
     class Program
     {
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-             
         }
     }
 }
