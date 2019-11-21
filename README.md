@@ -6,7 +6,9 @@
 
 - An einem Tag können **bis zu zwei Schichten** absolviert werden. (Die Mitternachtssauna geht bis 3 Uhr und um 13:15 Uhr beginnt die Spätschicht).
 
-- Der **Grundlohn** ist für jeden Schicht-Typ identisch. Jedoch gibt es je nach Schicht-Typ unterschiedliche **Zusatzleistungen**.
+- Der **Grundlohn** ist für jeden Schicht-Typ identisch.
+
+- Jede Schicht kann in verschiedene **Zeiträume** unterteilt werden. Jeder Zeitraum ist besitzt einen eindeutigen Faktor für den **Grundlohn**.
 
 - Zu jeder Schicht soll notiert werden, in welchem **Bereich** gearbeitet wurde (Schwimmhalle oder Freibad).
 
