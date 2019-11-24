@@ -7,7 +7,8 @@ namespace AZNPano
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Programmstart");
+            Console.WriteLine("");
             PanoDBService dbservice = new PanoDBService();
             
             dbservice.Init("AZNPano.db");

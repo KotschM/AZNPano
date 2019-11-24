@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using AZNPano.DBModel;
 
 namespace AZNPano.DBController
 {
@@ -13,6 +14,10 @@ namespace AZNPano.DBController
             sqliteconnection = new SqliteConnection($"Data Source={dataName}");
             sqliteconnection.Open();
 
+            //Achtung hier wird die Datenbank gelöscht.
+            DeleteAll();
+            //Achtung hier wird die Datenbank gelöscht.
+
             CreateIfNotExist("Typ");
             CreateIfNotExist("Bereich");
             CreateIfNotExist("Gehalt");
@@ -20,11 +25,30 @@ namespace AZNPano.DBController
             CreateIfNotExist("Schicht");
             CreateIfNotExist("Zeitraum");
 
-            insertDemoData();
+            InsertDemoData();
+
+            CreateGehaltModels();
+            List<GehaltFaktorModel> test = CreateGehaltFaktorModels();
+            /*
+            foreach (var item in test)
+            {
+                Console.WriteLine(item.Key);
+            }*/
 
             sqliteconnection.Close();
         
         }
+
+        private void DeleteAll(){
+            string sql = "DROP TABLE Zeitraum;"+
+                        " DROP TABLE Schicht;"+
+                        " DROP TABLE GehaltFaktor;"+
+                        " DROP TABLE Gehalt;"+
+                        " DROP TABLE Bereich;"+
+                        " DROP TABLE Typ;";
+            Update(sql);
+        }
+
         private void CreateIfNotExist(string relation)
         {
             string sql = $"SELECT name FROM sqlite_master WHERE name='{relation}'";
@@ -68,7 +92,7 @@ namespace AZNPano.DBController
             }
         }
 
-        private void insertDemoData(){
+        private void InsertDemoData(){
             string sql = "INSERT INTO Typ (Bezeichnung) values (1);"+
                         "INSERT INTO Typ (Bezeichnung) values (2);"+
                         "INSERT INTO Typ (Bezeichnung) values (3);"+
@@ -132,17 +156,110 @@ namespace AZNPano.DBController
                 return command.ExecuteReader();
             }
         }
-        private void Test(){
+
+        public List<GehaltFaktorModel> CreateGehaltFaktorModels(){
+            List<GehaltFaktorModel> allGehaltFaktorModels = new List<GehaltFaktorModel>();
+            List<(double Faktor, DateTime Start, DateTime End)> faktoren = new List<(double Faktor, DateTime Start, DateTime End)>();
+            List<string> loop = new List<string> {
+                "Nacht", "Feiertag", "Sonntag", "Pause", "Bereitschaftspause", "Normal"
+            };
+            foreach (string item in loop)
+            {
+                using (SqliteCommand command = sqliteconnection.CreateCommand())
+                {
+                    //Initialisiere die Klasen GehaltFaktorModel.cs
+                    command.CommandText = $"SELECT Faktor, Beginn, Ende FROM GehaltFaktor WHERE Bezeichnung = '{item}'";
+                    command.CommandType = CommandType.Text;
+                    SqliteDataReader r = command.ExecuteReader();
+                    while (r.Read())
+                    {
+                        DateTime beginn = DateTime.ParseExact(r["Beginn"].ToString(), "yyyy-MM-ddTHH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture);
+                        DateTime ende;
+                        if (r["Ende"].ToString() != "")
+                        {
+                            ende = DateTime.ParseExact(r["Ende"].ToString(), "yyyy-MM-ddTHH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture);
+                        }else
+                        {
+                            ende = new DateTime();
+                        }
+                        double faktor = Convert.ToDouble(r["Faktor"]);
+                        faktoren.Add((faktor, beginn, ende));
+                    }
+                    switch (item)
+                    {
+                        case "Nacht":
+                            allGehaltFaktorModels.Add(new GehaltFaktorModel(faktoren, ESchichtGehaltsfaktoren.Nacht));
+                        break;
+                        case "Feiertag":
+                            allGehaltFaktorModels.Add(new GehaltFaktorModel(faktoren, ESchichtGehaltsfaktoren.Feiertag));
+                        break;
+                        case "Sonntag":
+                            allGehaltFaktorModels.Add(new GehaltFaktorModel(faktoren, ESchichtGehaltsfaktoren.Sonntag));
+                        break;
+                        case "Pause":
+                            allGehaltFaktorModels.Add(new GehaltFaktorModel(faktoren, ESchichtGehaltsfaktoren.Pause));
+                        break;
+                        case "Bereitschaftspause":
+                            allGehaltFaktorModels.Add(new GehaltFaktorModel(faktoren, ESchichtGehaltsfaktoren.Bereitschaftspause));
+                        break;
+                        case "Normal":
+                            allGehaltFaktorModels.Add(new GehaltFaktorModel(faktoren, ESchichtGehaltsfaktoren.Normal));
+                        break;
+                    }
+                }
+            }
+            return allGehaltFaktorModels;
+        }
+        public GehaltModel CreateGehaltModels(){
+            List<(double Faktor, DateTime Start, DateTime End)> Gehaelter = new List<(double Faktor, DateTime Start, DateTime End)>();
             using (SqliteCommand command = sqliteconnection.CreateCommand())
             {
-                command.CommandText = @"SELECT DISTINCT Key, Value FROM test";
+                //Initialisiere die Klasen GehaltFaktorModel.cs
+                command.CommandText = "SELECT * FROM Gehalt";
                 command.CommandType = CommandType.Text;
                 SqliteDataReader r = command.ExecuteReader();
                 while (r.Read())
                 {
-                    Console.WriteLine(r["value"] + " " + r["key"]);
+                    DateTime beginn = DateTime.ParseExact(r["Beginn"].ToString(), "yyyy-MM-ddTHH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture);
+                    DateTime ende;
+                    if (r["Ende"].ToString() != "")
+                    {
+                        ende = DateTime.ParseExact(r["Ende"].ToString(), "yyyy-MM-ddTHH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture);
+                    }else
+                    {
+                        ende = new DateTime();
+                    }
+                    double betrag = Convert.ToDouble(r["Betrag"]);
+                    Gehaelter.Add((betrag, beginn, ende));
                 }
             }
+            return new GehaltModel(Gehaelter);
+        }
+
+        public List<SchichtModel> CreateSchichtModels(){
+            List<(double Faktor, DateTime Start, DateTime End)> Gehaelter = new List<(double Faktor, DateTime Start, DateTime End)>();
+            using (SqliteCommand command = sqliteconnection.CreateCommand())
+            {
+                //Initialisiere die Klasen GehaltFaktorModel.cs
+                command.CommandText = "SELECT * FROM Gehalt";
+                command.CommandType = CommandType.Text;
+                SqliteDataReader r = command.ExecuteReader();
+                while (r.Read())
+                {
+                    DateTime beginn = DateTime.ParseExact(r["Beginn"].ToString(), "yyyy-MM-ddTHH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture);
+                    DateTime ende;
+                    if (r["Ende"].ToString() != "")
+                    {
+                        ende = DateTime.ParseExact(r["Ende"].ToString(), "yyyy-MM-ddTHH:mm:ss.fff", System.Globalization.CultureInfo.InvariantCulture);
+                    }else
+                    {
+                        ende = new DateTime();
+                    }
+                    double betrag = Convert.ToDouble(r["Betrag"]);
+                    Gehaelter.Add((betrag, beginn, ende));
+                }
+            }
+            return null;
         }
     }
 }

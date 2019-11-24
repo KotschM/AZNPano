@@ -8,4 +8,3 @@ namespace AZNPano.DBModel
         Special = 4,
     }
 }
-
