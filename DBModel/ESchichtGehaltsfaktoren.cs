@@ -7,5 +7,6 @@ namespace AZNPano.DBModel
         Sonntag = 3, 
         Pause = 4, 
         Bereitschaftspause = 5,
+        Normal = 6
     }
 }

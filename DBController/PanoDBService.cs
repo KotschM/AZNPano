@@ -59,8 +59,8 @@ namespace AZNPano.DBController
                                                         " FOREIGN KEY(B_ID) REFERENCES Bereich(B_ID), FOREIGN KEY(G_ID) REFERENCES Gehalt(G_ID))";
                     break;
                     case "Zeitraum":
-                        sql = $"CREATE TABLE {relation} (S_ID INTEGER, GF_ID INTEGER, Beginn TIMESTAMP NOT NULL,"+
-                                                        " Ende TIMESTAMP, PRIMARY KEY (S_ID, GF_ID))";
+                        sql = $"CREATE TABLE {relation} (Z_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, S_ID INTEGER NOT NULL, GF_ID INTEGER NOT NULL, Beginn TIMESTAMP NOT NULL,"+
+                                                        " Ende TIMESTAMP)";
                     break;
                 }
                 Update(sql);                   
@@ -73,6 +73,7 @@ namespace AZNPano.DBController
                         "INSERT INTO Typ (Bezeichnung) values (2);"+
                         "INSERT INTO Typ (Bezeichnung) values (3);"+
                         "INSERT INTO Typ (Bezeichnung) values (4);"+
+
                         "INSERT INTO Bereich (Bezeichnung) values (1);"+
                         "INSERT INTO Bereich (Bezeichnung) values (2);"+
                         "INSERT INTO Bereich (Bezeichnung) values (3);"+
@@ -80,8 +81,10 @@ namespace AZNPano.DBController
                         "INSERT INTO Bereich (Bezeichnung) values (5);"+
                         "INSERT INTO Bereich (Bezeichnung) values (6);"+
                         "INSERT INTO Bereich (Bezeichnung) values (7);"+
+
                         "INSERT INTO Gehalt (Betrag, Beginn, Ende) values (12.50, '2018-01-01T00:00:00.000', '2018-12-31T00:00:00.000');" +
                         "INSERT INTO Gehalt (Betrag, Beginn) values (12.94, '2019-01-01T00:00:00.000');" +
+
                         "INSERT INTO GehaltFaktor (Bezeichnung, Faktor, Beginn, Ende) values (1, 1.25, '2018-01-01T00:00:00.000', '2018-12-31T00:00:00.000');" +
                         "INSERT INTO GehaltFaktor (Bezeichnung, Faktor, Beginn) values (1, 1.35, '2019-01-01T00:00:00.000');" +
                         "INSERT INTO GehaltFaktor (Bezeichnung, Faktor, Beginn, Ende) values (2, 1.30, '2018-01-01T00:00:00.000', '2018-12-31T00:00:00.000');" +
@@ -92,12 +95,18 @@ namespace AZNPano.DBController
                         "INSERT INTO GehaltFaktor (Bezeichnung, Faktor, Beginn) values (4, 0.0, '2019-01-01T00:00:00.000');" +
                         "INSERT INTO GehaltFaktor (Bezeichnung, Faktor, Beginn, Ende) values (5, 1.0, '2018-01-01T00:00:00.000', '2018-12-31T00:00:00.000');" +
                         "INSERT INTO GehaltFaktor (Bezeichnung, Faktor, Beginn) values (5, 1.0, '2019-01-01T00:00:00.000');" +
-                        "INSERT INTO Schicht (T_ID, B_ID, G_ID, Beginn, Ende) values (1, );" +
-                        "INSERT INTO Schicht (T_ID, B_ID, G_ID, Beginn, Ende) values (2, );" +
-                        "INSERT INTO Schicht (T_ID, B_ID, G_ID, Beginn, Ende) values (3, );" +
-                        "INSERT INTO Schicht (key, value) values ('key3', 9003);" +
-                        "INSERT INTO Schicht (key, value) values ('key4', 9004);" +
-                        "INSERT INTO Schicht (key, value) values ('key5', 9005);";
+                        "INSERT INTO GehaltFaktor (Bezeichnung, Faktor, Beginn, Ende) values (6, 1.0, '2018-01-01T00:00:00.000', '2018-12-31T00:00:00.000');" +
+                        "INSERT INTO GehaltFaktor (Bezeichnung, Faktor, Beginn) values (6, 1.0, '2019-01-01T00:00:00.000');" +
+
+                        "INSERT INTO Schicht (T_ID, B_ID, G_ID, Beginn, Ende) values (1, 1, 2, '2019-11-19T06:45:00.000', '2019-11-19T15:15:00.000');" +
+                        "INSERT INTO Schicht (T_ID, B_ID, G_ID, Beginn, Ende) values (2, 1, 2, '2019-11-20T15:00:00.000', '2019-11-20T23:30:00.000');" +
+
+                        "INSERT INTO Zeitraum (S_ID, GF_ID, Beginn, Ende) values (1, 12, '2019-11-19T06:45:00.000', '2019-11-19T09:00:00.000');" +
+                        "INSERT INTO Zeitraum (S_ID, GF_ID, Beginn, Ende) values (1, 8, '2019-11-19T09:00:00.000', '2019-11-19T09:30:00.000');" +
+                        "INSERT INTO Zeitraum (S_ID, GF_ID, Beginn, Ende) values (1, 12, '2019-11-19T09:30:00.000', '2019-11-19T15:15:00.000');" +
+                        "INSERT INTO Zeitraum (S_ID, GF_ID, Beginn, Ende) values (2, 12, '2019-11-20T15:00:00.000', '2019-11-20T19:00:00.000');" +
+                        "INSERT INTO Zeitraum (S_ID, GF_ID, Beginn, Ende) values (2, 8, '2019-11-19T09:00:00.000', '2019-11-19T09:30:00.000');" +
+                        "INSERT INTO Zeitraum (S_ID, GF_ID, Beginn, Ende) values (2, 12, '2019-11-19T09:30:00.000', '2019-11-19T15:15:00.000');";
             Update(sql);
         }
 
