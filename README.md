@@ -22,7 +22,7 @@
 
 - Typ(**T_ID**, Bezeichnung)
 - Bereich(**B_ID**, Bezeichnung)
-- Zeitraum(**_S_ID_, _GF_ID_**, Beginn, Ende)
+- Zeitraum(**Z_ID**, _S_ID_, _GF_ID_, Beginn, Ende)
 - GehaltFaktor(**GF_ID**, Bezeichnung, Faktor, Beginn, Ende)
 - Gehalt(**G_ID**, Betrag, Beginn, Ende)
 - Schicht(**S_ID**, _T_ID_, _B_ID_, _G_ID_, Beginn, Ende)
