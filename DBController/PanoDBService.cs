@@ -15,7 +15,7 @@ namespace AZNPano.DBController
             sqliteconnection.Open();
 
             //Achtung hier wird die Datenbank gelöscht.
-            DeleteAll();
+            //DeleteAll();
             //Achtung hier wird die Datenbank gelöscht.
 
             CreateIfNotExist("Typ");
@@ -237,6 +237,7 @@ namespace AZNPano.DBController
         }
 
         public List<SchichtModel> CreateSchichtModels(){
+            /*
             List<(double Faktor, DateTime Start, DateTime End)> Gehaelter = new List<(double Faktor, DateTime Start, DateTime End)>();
             using (SqliteCommand command = sqliteconnection.CreateCommand())
             {
@@ -258,7 +259,7 @@ namespace AZNPano.DBController
                     double betrag = Convert.ToDouble(r["Betrag"]);
                     Gehaelter.Add((betrag, beginn, ende));
                 }
-            }
+            }*/
             return null;
         }
     }
