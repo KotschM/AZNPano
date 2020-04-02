@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AZNPano.Lib\AZNPano.Lib.csproj" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="3.0.1" />
   </ItemGroup>
 
 </Project>
